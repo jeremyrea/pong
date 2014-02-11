@@ -53,14 +53,14 @@ function love.update(dt)
     world:update(dt)
 
     if love.keyboard.isDown("w") then
-        panel1.b:applyForce(0, -50000000)
+        panel1.b:applyForce(0, -250000000) --50000000
     elseif love.keyboard.isDown("s") then
-        panel1.b:applyForce(0, 50000000)
+        panel1.b:applyForce(0, 250000000)
     end
     if love.keyboard.isDown("up") then
-        panel2.b:applyForce(0, -50000000)
+        panel2.b:applyForce(0, -250000000)
     elseif love.keyboard.isDown("down") then
-        panel2.b:applyForce(0, 50000000)
+        panel2.b:applyForce(0, 250000000)
     end
 
     if love.keyboard.isDown("r") then
@@ -92,7 +92,7 @@ function love.update(dt)
 
 	if (gameEnd1 ~= true and gameEnd2 ~= true) then
     	if (firstLaunch == true) then
-        	ball.b:applyForce(20000, 0) --10000
+        	ball.b:applyForce(15000, 0) --10000
         	firstLaunch = false
     	end
     end
