@@ -11,26 +11,26 @@ function love.load()
         ball.f:setUserData("Ball")
 
     panel1 = {}
-        panel1.b = love.physics.newBody(world, 20, 300, "dynamic")
-        panel1.s = love.physics.newRectangleShape(10, 75)
+        panel1.b = love.physics.newBody(world, 40, 300, "dynamic")
+        panel1.s = love.physics.newRectangleShape(20, 75)
         panel1.f = love.physics.newFixture(panel1.b, panel1.s, 100000)
         panel1.f:setUserData("Block")
 
     panel2 = {}
-        panel2.b = love.physics.newBody(world, 780, 300, "dynamic")
-        panel2.s = love.physics.newRectangleShape(10, 75)
+        panel2.b = love.physics.newBody(world, 760, 300, "dynamic")
+        panel2.s = love.physics.newRectangleShape(20, 75)
         panel2.f = love.physics.newFixture(panel2.b, panel2.s, 100000)
         panel2.f:setUserData("Block")
 
     topLimit = {}
         topLimit.b = love.physics.newBody(world, 400, 0, "static")
-        topLimit.s = love.physics.newRectangleShape(800, 5)
+        topLimit.s = love.physics.newRectangleShape(800, 20)
         topLimit.f = love.physics.newFixture(topLimit.b, topLimit.s)
         topLimit.f:setUserData("Block") 
 
     bottomLimit = {}
         bottomLimit.b = love.physics.newBody(world, 400, 600, "static")
-        bottomLimit.s = love.physics.newRectangleShape(800, 5)
+        bottomLimit.s = love.physics.newRectangleShape(800, 20)
         bottomLimit.f = love.physics.newFixture(bottomLimit.b, bottomLimit.s)
         bottomLimit.f:setUserData("Block") 
 
@@ -92,7 +92,7 @@ function love.update(dt)
 
 	if (gameEnd1 ~= true and gameEnd2 ~= true) then
     	if (firstLaunch == true) then
-        	ball.b:applyForce(10000, 0) --10000
+        	ball.b:applyForce(20000, 0) --10000
         	firstLaunch = false
     	end
     end
@@ -107,7 +107,13 @@ function love.draw()
     love.graphics.polygon("fill", topLimit.b:getWorldPoints(topLimit.s:getPoints()))
     love.graphics.polygon("fill", bottomLimit.b:getWorldPoints(bottomLimit.s:getPoints()))
     love.graphics.setFont(scoreFont)
-    love.graphics.printf(score, 0, 30, 800, 'center')
+    if (pts1 ~= 10 or pts2 ~= 10) then
+    	love.graphics.printf(score, 0, 30, 800, 'center')
+    elseif (pts1 == 10) then
+    	--love.graphics.print(score, 350, 30)
+	elseif (pts2 == 10) then
+		--love.graphics.print(score, 350, 30)
+	end
     love.graphics.setFont(centerFont)
 	love.graphics.printf("|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|", 0, 12, 800, 'center')
 
@@ -117,20 +123,13 @@ function love.draw()
 	end
 
 	if (gameEnd1 == true) then
-    	love.graphics.printf(endGame, 0, 0, 800, 'left')
-    	love.graphics.printf(message, 0, 0, 800, 'right')
+    	love.graphics.printf(endGame, 0, 10, 800, 'left')
+    	love.graphics.printf(message, 0, 10, 800, 'right')
     	pts1 = 0
     	pts2 = 0
     	gameEnd1 = false
     	gameEnd2 = true
-    end
-
-
-	if (pts1 == 10 or pts2 == 10) then
-    	--gameEnd1 = true
-	end
-
-	   
+    end 
 
 end
 
@@ -140,9 +139,9 @@ function newRound()
     panel2.b:setLinearVelocity(0, 0)
     ball.b:setX(400)
     ball.b:setY(300)
-    panel1.b:setX(20)
+    panel1.b:setX(40)
     panel1.b:setY(300)
-    panel2.b:setX(780)
+    panel2.b:setX(760)
     panel2.b:setY(300)
     firstLaunch = true
 end
