@@ -38,11 +38,15 @@ function love.load()
     centerFont = love.graphics.newFont(20)
 
     firstLaunch = true
+    gameEnd1    = false
+    gameEnd2    = false
     pts1        = 0
     pts2        = 0
     x           = 0
     y           = 0
-    score       = "" 
+    score       = ""
+    endGame     = "" 
+    message     = "Game will restart in 5 seconds"
 end
 
 function love.update(dt)
@@ -78,10 +82,19 @@ function love.update(dt)
         --ball.b:applyForce(10000, 0)
     end
 
-    if (firstLaunch == true) then
-        --love.timer.sleep(2)
-        ball.b:applyForce(10000, 0)
-        firstLaunch = false
+    if (pts1 == 10) then
+    	endGame = "Player 1 wins!"
+    	gameEnd1 = true
+	elseif (pts2 == 10) then
+		endGame = "Player 2 wins!"
+		gameEnd1 = true
+	end
+
+	if (gameEnd1 ~= true and gameEnd2 ~= true) then
+    	if (firstLaunch == true) then
+        	ball.b:applyForce(10000, 0) --10000
+        	firstLaunch = false
+    	end
     end
 
     score = pts1.." "..pts2
@@ -98,8 +111,26 @@ function love.draw()
     love.graphics.setFont(centerFont)
 	love.graphics.printf("|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|", 0, 12, 800, 'center')
 
+	if (gameEnd2 == true) then
+		love.timer.sleep(5)
+		gameEnd2 = false
+	end
+
+	if (gameEnd1 == true) then
+    	love.graphics.printf(endGame, 0, 0, 800, 'left')
+    	love.graphics.printf(message, 0, 0, 800, 'right')
+    	pts1 = 0
+    	pts2 = 0
+    	gameEnd1 = false
+    	gameEnd2 = true
+    end
 
 
+	if (pts1 == 10 or pts2 == 10) then
+    	--gameEnd1 = true
+	end
+
+	   
 
 end
 
