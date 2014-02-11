@@ -3,7 +3,7 @@ function love.load()
         world:setCallbacks(beginContact, endContact, preSolve, postSolve)
 
     ball = {}
-        ball.b = love.physics.newBody(world, 400,300, "dynamic")
+        ball.b = love.physics.newBody(world, 400, 300, "dynamic")
         ball.b:setMass(1)
         ball.s = love.physics.newCircleShape(10)
         ball.f = love.physics.newFixture(ball.b, ball.s)
@@ -11,36 +11,38 @@ function love.load()
         ball.f:setUserData("Ball")
 
     panel1 = {}
-        panel1.b = love.physics.newBody(world, 20,300, "dynamic")
-        panel1.s = love.physics.newRectangleShape(10,75)
+        panel1.b = love.physics.newBody(world, 20, 300, "dynamic")
+        panel1.s = love.physics.newRectangleShape(10, 75)
         panel1.f = love.physics.newFixture(panel1.b, panel1.s, 100000)
         panel1.f:setUserData("Block")
 
     panel2 = {}
-        panel2.b = love.physics.newBody(world, 780,300, "dynamic")
-        panel2.s = love.physics.newRectangleShape(10,75)
+        panel2.b = love.physics.newBody(world, 780, 300, "dynamic")
+        panel2.s = love.physics.newRectangleShape(10, 75)
         panel2.f = love.physics.newFixture(panel2.b, panel2.s, 100000)
         panel2.f:setUserData("Block")
 
     topLimit = {}
-        topLimit.b = love.physics.newBody(world, 400,-1, "static")
-        topLimit.s = love.physics.newRectangleShape(800,1)
+        topLimit.b = love.physics.newBody(world, 400, 0, "static")
+        topLimit.s = love.physics.newRectangleShape(800, 5)
         topLimit.f = love.physics.newFixture(topLimit.b, topLimit.s)
         topLimit.f:setUserData("Block") 
 
     bottomLimit = {}
-        bottomLimit.b = love.physics.newBody(world, 400,601, "static")
-        bottomLimit.s = love.physics.newRectangleShape(800,1)
+        bottomLimit.b = love.physics.newBody(world, 400, 600, "static")
+        bottomLimit.s = love.physics.newRectangleShape(800, 5)
         bottomLimit.f = love.physics.newFixture(bottomLimit.b, bottomLimit.s)
         bottomLimit.f:setUserData("Block") 
+
+    scoreFont = love.graphics.newFont(90)
+    centerFont = love.graphics.newFont(20)
 
     firstLaunch = true
     pts1        = 0
     pts2        = 0
     x           = 0
     y           = 0
-    text        = ""   -- we'll use this to put info text on the screen later
-    persisting  = 0    -- we'll use this to store the state of repeated callback calls
+    score       = "" 
 end
 
 function love.update(dt)
@@ -81,16 +83,23 @@ function love.update(dt)
         ball.b:applyForce(10000, 0)
         firstLaunch = false
     end
-    text = pts1.."                    "..pts2
+
+    score = pts1.." "..pts2
 end
 
 function love.draw()
     love.graphics.circle("fill", ball.b:getX(),ball.b:getY(), ball.s:getRadius(), 20)
     love.graphics.polygon("fill", panel1.b:getWorldPoints(panel1.s:getPoints()))
     love.graphics.polygon("fill", panel2.b:getWorldPoints(panel2.s:getPoints()))
-    love.graphics.polygon("line", topLimit.b:getWorldPoints(topLimit.s:getPoints()))
-    love.graphics.polygon("line", bottomLimit.b:getWorldPoints(bottomLimit.s:getPoints()))
-    love.graphics.print(text, 350, 10)
+    love.graphics.polygon("fill", topLimit.b:getWorldPoints(topLimit.s:getPoints()))
+    love.graphics.polygon("fill", bottomLimit.b:getWorldPoints(bottomLimit.s:getPoints()))
+    love.graphics.setFont(scoreFont)
+    love.graphics.printf(score, 0, 30, 800, 'center')
+    love.graphics.setFont(centerFont)
+	love.graphics.printf("|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|\n\n|", 0, 12, 800, 'center')
+
+
+
 
 end
 
