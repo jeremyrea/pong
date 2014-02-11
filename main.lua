@@ -1,6 +1,5 @@
 function love.load()
     world = love.physics.newWorld(0, 0, true)
-        world:setCallbacks(beginContact, endContact, preSolve, postSolve)
 
     ball = {}
         ball.b = love.physics.newBody(world, 400, 300, "dynamic")
