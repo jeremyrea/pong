@@ -53,17 +53,17 @@ function love.update(dt)
 
     if love.keyboard.isDown("w") then
        -- panel1.b:applyForce(0, -250000000) --50000000
-       panel1.b:setLinearVelocity(0, -500)
+       panel1.b:setLinearVelocity(0, -400)
     elseif love.keyboard.isDown("s") then
         --panel1.b:applyForce(0, 250000000)
-        panel1.b:setLinearVelocity(0, 500)
+        panel1.b:setLinearVelocity(0, 400)
     end
     if love.keyboard.isDown("up") then
         --panel2.b:applyForce(0, -250000000)
-        panel2.b:setLinearVelocity(0, -500)
+        panel2.b:setLinearVelocity(0, -400)
     elseif love.keyboard.isDown("down") then
         --panel2.b:applyForce(0, 250000000)
-        panel2.b:setLinearVelocity(0, 500)
+        panel2.b:setLinearVelocity(0, 400)
     end
 
     if love.keyboard.isDown("r") then
@@ -93,7 +93,7 @@ function love.update(dt)
 
 	if (gameEnd1 ~= true and gameEnd2 ~= true) then
     	if (firstLaunch == true) then
-        	ball.b:applyForce(15000, 0)
+        	ball.b:setLinearVelocity(500, 0)
         	firstLaunch = false
     	end
     end
