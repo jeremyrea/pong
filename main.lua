@@ -52,14 +52,18 @@ function love.update(dt)
     world:update(dt)
 
     if love.keyboard.isDown("w") then
-        panel1.b:applyForce(0, -250000000) --50000000
+       -- panel1.b:applyForce(0, -250000000) --50000000
+       panel1.b:setLinearVelocity(0, -500)
     elseif love.keyboard.isDown("s") then
-        panel1.b:applyForce(0, 250000000)
+        --panel1.b:applyForce(0, 250000000)
+        panel1.b:setLinearVelocity(0, 500)
     end
     if love.keyboard.isDown("up") then
-        panel2.b:applyForce(0, -250000000)
+        --panel2.b:applyForce(0, -250000000)
+        panel2.b:setLinearVelocity(0, -500)
     elseif love.keyboard.isDown("down") then
-        panel2.b:applyForce(0, 250000000)
+        --panel2.b:applyForce(0, 250000000)
+        panel2.b:setLinearVelocity(0, 500)
     end
 
     if love.keyboard.isDown("r") then
@@ -73,12 +77,10 @@ function love.update(dt)
         pts1 = pts1 + 1
         newRound()
         firstLaunch = true
-        --ball.b:applyForce(-10000, 0)
     elseif (x < 0) then
         pts2 = pts2 + 1
         newRound()
         firstLaunch = true
-        --ball.b:applyForce(10000, 0)
     end
 
     if (pts1 == 10) then
@@ -91,7 +93,7 @@ function love.update(dt)
 
 	if (gameEnd1 ~= true and gameEnd2 ~= true) then
     	if (firstLaunch == true) then
-        	ball.b:applyForce(15000, 0) --10000
+        	ball.b:applyForce(15000, 0)
         	firstLaunch = false
     	end
     end
@@ -130,6 +132,16 @@ function love.draw()
     	gameEnd2 = true
     end 
 
+end
+
+function love.keyreleased(key)
+    if (key == "w") or (key == "s") then
+        panel1.b:setLinearVelocity(0,0)
+    end
+
+    if (key == "up") or (key == "down") then
+        panel2.b:setLinearVelocity(0,0)
+    end
 end
 
 function newRound()
